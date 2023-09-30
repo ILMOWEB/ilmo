@@ -73,28 +73,28 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-#      - name: Start containers
-#        run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Start containers
+        run: docker-compose -f "docker-compose.yml" up -d --build
 
-#      - name: Tag ilmoweb image
-#        run: docker tag ilmoweb:ilmo ellaverak/ilmoweb:ilmo
+      - name: Tag ilmoweb image
+        run: docker tag ilmoweb:ilmo ellaverak/ilmoweb:ilmo
 
-#      - name: Tag postgres image
-#        run: docker tag postgres:latest ellaverak/ilmoweb:postgres
+      - name: Tag postgres image
+        run: docker tag postgres:latest ellaverak/ilmoweb:postgres
 
-#      - name: Push to Docker Hub
-#        uses: docker/build-push-action@v2
-#        with:
-#          context: .
-#          push: true
-#          tags: docker push ellaverak/ilmoweb:ilmo, docker push ellaverak/ilmoweb:postgres
-#
-#      - name: Stop containers
-#        if: always()
-#        run: docker-compose -f "docker-compose.yml" down
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: docker push ellaverak/ilmoweb:ilmo, docker push ellaverak/ilmoweb:postgres
 
-      - name: Build docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
 
-      - name: Push image to docker hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+#      - name: Build docker image
+#        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+
+#      - name: Push image to docker hub
+#        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
