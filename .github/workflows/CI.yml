@@ -82,8 +82,11 @@ jobs:
       - name: Tag postgres image
         run: docker tag postgres:latest ellaverak/ilmoweb:postgres
 
-      - name: Push image to docker hub
+      - name: Push ilmoweb image to docker hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+
+      - name: Push postgres image to docker hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:postgres
 
 #      - name: Push to Docker Hub
 #        uses: docker/build-push-action@v2
