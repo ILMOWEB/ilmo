@@ -58,12 +58,7 @@ jobs:
       - name: Lint
         working-directory: ./app
         run: poetry run invoke lint
-  publish:
-    runs-on: ubuntu-latest
 
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
       - name: login to Docker Hub
         uses: docker/login-actions@v1
         with:
