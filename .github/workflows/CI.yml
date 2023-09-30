@@ -77,17 +77,17 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up -d --build
 
       - name: Tag ilmoweb image
-        run: docker tag ilmoweb:ilmo ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+        run: docker tag ilmoweb:ilmo ellaverak/ilmoweb:ilmo
 
       - name: Tag postgres image
-        run: docker tag postgres:latest ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:postgres
+        run: docker tag postgres:latest ellaverak/ilmoweb:postgres
 
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo, docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:postgres
+          tags: docker push ellaverak/ilmoweb:ilmo, docker push ellaverak/ilmoweb:postgres
 
       - name: Stop containers
         if: always()
