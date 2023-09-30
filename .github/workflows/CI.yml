@@ -82,12 +82,15 @@ jobs:
       - name: Tag postgres image
         run: docker tag postgres:latest ellaverak/ilmoweb:postgres
 
-      - name: Push to Docker Hub
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: docker push ellaverak/ilmoweb:ilmo, docker push ellaverak/ilmoweb:postgres
+      - name: Push image to docker hub
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:ilmo
+
+#      - name: Push to Docker Hub
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          push: true
+#          tags: docker push ellaverak/ilmoweb:ilmo, docker push ellaverak/ilmoweb:postgres
 
       - name: Stop containers
         if: always()
