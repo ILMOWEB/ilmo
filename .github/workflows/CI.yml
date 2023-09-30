@@ -60,7 +60,7 @@ jobs:
         run: poetry run invoke lint
 
   publish:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: login to Docker Hub
