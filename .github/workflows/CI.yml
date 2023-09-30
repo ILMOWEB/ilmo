@@ -62,7 +62,7 @@ jobs:
   publish:
     runs-on: ubuntu:latest
 
-      steps:
+    steps:
       - name: login to Docker Hub
         uses: docker/login-actions@v3
         with:
