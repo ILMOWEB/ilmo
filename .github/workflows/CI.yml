@@ -59,8 +59,12 @@ jobs:
         working-directory: ./app
         run: poetry run invoke lint
 
+  publish:
+      runs-on: ubuntu:latest
+
+      steps:
       - name: login to Docker Hub
-        uses: docker/login-actions@v1
+        uses: docker/login-actions@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
