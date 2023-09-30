@@ -75,3 +75,14 @@ jobs:
 
       - name: Start containers
         run: docker-compose -f "docker-compose.yml" up -d --build
+
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ilmoweb:test
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
