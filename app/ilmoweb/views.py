@@ -6,8 +6,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from ilmoweb.models import User, Courses, Labs, LabGroups, SignUp
 from ilmoweb.forms import NewLabForm
 from ilmoweb.logic import labs, signup
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 def home_page_view(request):
     """
         Homepage view.
@@ -15,6 +17,7 @@ def home_page_view(request):
     """
     return render(request, "home.html")
 
+@csrf_exempt
 def created_labs(request):
     """
         View for all created labs.
@@ -25,6 +28,7 @@ def created_labs(request):
     courses = Courses.objects.all()
     return render(request, "created_labs.html", {"courses":courses})
 
+@csrf_exempt
 def create_lab(request):
     """
         View for creating a new lab.
@@ -49,6 +53,7 @@ def create_lab(request):
 
     return render(request, "create_lab.html", {"form": form, "course_id": course_id})
 
+@csrf_exempt
 def open_labs(request):
     """
         View for labs that are open
