@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'ilmoweb.User'
 
+CSFR_TREUSTED_ORIGINS= ['https://ilmo-net-ohtuprojekti-staging.apps.ocp-test-0.k8s.it.helsinki.fi']
+
 
 # Application definition
 
