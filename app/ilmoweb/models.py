@@ -43,3 +43,13 @@ class LabGroups(models.Model):
     place = models.CharField(max_length = 100)
     status = models.IntegerField(default = 0)
     ## 0 = not visible to students, 1 = unconfirmed, 2 = confirmed, 3 = canceled
+    signed_up_students = models.IntegerField(default=0)
+
+class SignUp(models.Model):
+    """
+        Model for users and the labgroups they have signed up for
+        
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    labgroups = models.ForeignKey(LabGroups, on_delete=models.CASCADE)
+    

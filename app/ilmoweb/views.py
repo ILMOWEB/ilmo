@@ -8,39 +8,28 @@ from ilmoweb.forms import NewLabForm
 from ilmoweb.logic import labs, signup, labgroups
 
 
-def home_page_view(request):    # pylint: disable=unused-argument
+def home_page_view(request):
     """
         Homepage view.
 
     """
-    return render(request, 'home.html')
-
-def database_test_view(request):
-    """
-        Database test view.
-    """
-    test_data = User.objects.all()    # pylint: disable=no-member
-
-    return render(request, 'database_test.html', {"users":test_data})
+    return render(request, "home.html")
 
 def created_labs(request):
     """
         View for all created labs.
     """
     courses = Courses.objects.all()    # pylint: disable=no-member
-    course_id = request.POST.get("course_id")
-
-    if request.user.is_staff is not True:
-        return redirect("/open_labs")
-
-    courses = Courses.objects.all()
-     
     return render(request, "created_labs.html", {"courses":courses})
 
 def create_lab(request):
     """
         View for creating a new lab.
     """
+    if request.method == "GET":
+        if request.user.is_staff is not True:
+            return redirect("/open_labs")
+
     if request.method == "POST":
         form = NewLabForm(request.POST)
         course_id = request.POST.get("course_id")
@@ -57,16 +46,35 @@ def create_lab(request):
 
     return render(request, "create_lab.html", {"form": form, "course_id": course_id})
 
-def open_labs(request):     # pylint: disable=unused-argument
+def open_labs(request):
     """
         View for labs that are open
     """
-    courses =  Courses.objects.all()    # pylint: disable=no-member
-    course_labs =  Labs.objects.all()    # pylint: disable=no-member
-    lab_groups =  LabGroups.objects.all()    # pylint: disable=no-member
+    courses =  Courses.objects.all()
+    course_labs =  Labs.objects.all()
+    lab_groups =  LabGroups.objects.all()
+    signedup = SignUp.objects.all()
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+        group_id = data.get('group_id')
+        user = get_object_or_404(User, pk = user_id)
+        group = get_object_or_404(LabGroups, pk = group_id)
+        signup.signup(user=user, group=group)
 
     return render(request, 'open_labs.html', {"courses":courses, "labs":course_labs,
-                                              "lab_groups":lab_groups})
+                                              "lab_groups":lab_groups, "signedup":signedup})
+
+def confirm(request):
+    """
+        request for confirming a labgroup
+    """
+    if request.method == "POST":
+        group_id = json.loads(request.body)
+        labgroups.confirm(group_id)
+
+    return HttpResponseRedirect("/open_labs")
 
 def delete_lab(request, course_id):
     """
