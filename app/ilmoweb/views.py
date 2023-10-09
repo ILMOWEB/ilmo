@@ -27,6 +27,7 @@ def created_labs(request):
         View for all created labs.
     """
     courses = Courses.objects.all()    # pylint: disable=no-member
+    course_id = request.POST.get("course_id")
     return render(request, "created_labs.html", {"courses":courses})
 
 def create_lab(request):
@@ -59,3 +60,14 @@ def open_labs(request):     # pylint: disable=unused-argument
 
     return render(request, 'open_labs.html', {"courses":courses, "labs":course_labs,
                                               "lab_groups":lab_groups})
+
+def delete_lab(request, course_id):
+    """
+        Delete lab from database.
+    """    
+    lab = Labs.objects.get(pk=course_id)
+    lab.deleted=1
+    lab.save()
+    courses = Courses.objects.all()
+
+    return render(request, "created_labs.html", {"lab":lab, "courses":courses})

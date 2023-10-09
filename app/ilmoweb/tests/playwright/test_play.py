@@ -7,14 +7,14 @@ def test_welcome_message(page: Page):
 
 def test_login_link(page: Page):
     page.goto('/')
-    page.get_by_role("link", name="Kirjaudu sisään").click()
+    page.get_by_role("button", name="Kirjaudu sisään").click()
     expect(page.get_by_role("heading", name="Log In")).to_be_visible()
-"""
-def test_admin_view(page: Page):
-    page.goto('/')
-    assert page.inner_text('h6') == 'Olet admin roolissa'
 
-def test_student_view(page: Page):
+def test_logging_in(page: Page):
     page.goto('/')
-    assert page.inner_text('h6') == 'Olet käyttäjäroolissa'
-"""
+    page.get_by_role("button", name="Kirjaudu sisään").click()
+    page.get_by_role("textbox", name="username").fill('kemianope')
+    page.get_by_role("textbox", name="password").fill('atomi123')
+    page.get_by_role("button", name="Log In").click()
+    expect(page.get_by_role("heading", name="Tervetuloa laboratoriotöiden ilmoittautumis- ja palautusjärjestelmään kemianope!")).to_be_visible()
+

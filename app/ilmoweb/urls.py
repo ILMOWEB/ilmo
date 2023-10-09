@@ -10,4 +10,5 @@ urlpatterns = [
     path("created_labs/", views.created_labs, name="created_labs"),
     path("create_lab/", views.create_lab, name="create_lab"),
     path("open_labs/", views.open_labs, name="open_labs"),
+    path("delete_lab/<int:course_id>", views.delete_lab, name="delete_lab"),
 ]
