@@ -1,12 +1,73 @@
 """Module for page rendering."""
 import datetime
 import os
+import urllib.request
+import json
 from django.http import HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate as django_authenticate
+from django.contrib.auth import login as django_login
+from django.contrib.auth import logout as django_logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.urls import reverse
+from authlib.integrations.django_client import OAuth
+from authlib.oidc.core import CodeIDToken
+from authlib.jose import jwt
 from ilmoweb.models import User, Courses, Labs, LabGroups, SignUp, Report
 from ilmoweb.logic import labs, signup, labgroups, files
+
+CONF_URL = 'https://login-test.it.helsinki.fi/.well-known/openid-configuration'
+oauth = OAuth()
+oauth.register(
+    name='helsinki',
+    server_metadata_url=CONF_URL,
+    client_kwargs={
+        'scope': 'openid profile'
+    }
+)
+
+claims_data = {
+        "id_token": {
+            "hyPersonStudentId": None,
+
+        },
+        "userinfo": {
+            "email": None,
+            "given_name": None,
+            "family_name": None,
+            "uid": None
+        }
+    }
+
+claims = json.dumps(claims_data)
+
+with urllib.request.urlopen("https://login-test.it.helsinki.fi/idp/profile/oidc/keyset") as url:
+    keys = json.load(url)
+
+def login(request):
+    redirect_uri = request.build_absolute_uri(reverse('auth'))
+    return oauth.helsinki.authorize_redirect(request, redirect_uri, claims=claims)
+
+
+def auth(request):
+    token = oauth.helsinki.authorize_access_token(request)
+
+    userinfo = oauth.helsinki.userinfo(token=token)
+    userdata = jwt.decode(token['id_token'], keys, claims_cls=CodeIDToken)
+    userdata.validate()
+
+    user = django_authenticate(userinfo=userinfo)
+    if user is not None:
+        django_login(request, user)
+
+    return redirect(home_page_view)
+
+def logout(request):
+    django_logout(request)
+
+    return redirect("https://login-test.it.helsinki.fi/idp/profile/Logout")
+
 
 def home_page_view(request):
     """
