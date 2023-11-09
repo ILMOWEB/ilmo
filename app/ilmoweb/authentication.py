@@ -1,5 +1,6 @@
 """Module for custom authentication backend."""
 from ilmoweb.models import User
+from django.contrib.auth.hashers import make_password
 
 
 class AuthenticationBackend:
@@ -7,7 +8,7 @@ class AuthenticationBackend:
         try:
             user = User.objects.get(email=userinfo['email'])
         except User.DoesNotExist:
-            user = User(username=userinfo['uid'], first_name=userinfo['given_name'], last_name=userinfo['family_name'], email=userinfo['email'])
+            user = User(username=userinfo['uid'], first_name=userinfo['given_name'], last_name=userinfo['family_name'], email=userinfo['email'], password=make_password("test"), is_staff="t")
             user.save()
             return user
         return user

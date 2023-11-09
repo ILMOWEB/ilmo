@@ -8,8 +8,6 @@ class User(AbstractUser):
 
     """
     student_id = models.IntegerField(default=000000000)
-    password = models.TextField(default=0000)
-    is_staff = models.BooleanField(default=0)
 
 class Courses(models.Model):
     """
