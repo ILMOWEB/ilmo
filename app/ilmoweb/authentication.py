@@ -8,7 +8,7 @@ class AuthenticationBackend:
         try:
             user = User.objects.get(email=userinfo['email'])
         except User.DoesNotExist:
-            user = User(username=userinfo['uid'], first_name=userinfo['given_name'], last_name=userinfo['family_name'], email=userinfo['email'], password=make_password("test"), is_staff="t")
+            user = User(username=userinfo['uid'], first_name=userinfo['given_name'], last_name=userinfo['family_name'], email=userinfo['email'], password=make_password("test"), is_staff=0)
             user.save()
             return user
         return user
