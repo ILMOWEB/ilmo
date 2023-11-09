@@ -154,7 +154,7 @@ if env("LOCAL") == 'False':
 if env("LOCAL") == 'False':
     # AUTHLIB CLIENTS
     AUTHLIB_OAUTH_CLIENTS = {
-        'helsinki': {
+        'ilmoweb': {
             'client_id': env('OIDC_CLIENT_ID'),
             'client_secret': env('OIDC_CLIENT_SECRET')
         }

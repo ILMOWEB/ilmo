@@ -20,7 +20,7 @@ from ilmoweb.logic import labs, signup, labgroups, files
 CONF_URL = 'https://login-test.it.helsinki.fi/.well-known/openid-configuration'
 oauth = OAuth()
 oauth.register(
-    name='helsinki',
+    name='ilmoweb',
     server_metadata_url=CONF_URL,
     client_kwargs={
         'scope': 'openid profile'
@@ -47,13 +47,13 @@ with urllib.request.urlopen("https://login-test.it.helsinki.fi/idp/profile/oidc/
 
 def login(request):
     redirect_uri = request.build_absolute_uri(reverse('auth'))
-    return oauth.helsinki.authorize_redirect(request, redirect_uri, claims=claims)
+    return oauth.ilmoweb.authorize_redirect(request, redirect_uri, claims=claims)
 
 
 def auth(request):
-    token = oauth.helsinki.authorize_access_token(request)
+    token = oauth.ilmoweb.authorize_access_token(request)
 
-    userinfo = oauth.helsinki.userinfo(token=token)
+    userinfo = oauth.ilmoweb.userinfo(token=token)
     userdata = jwt.decode(token['id_token'], keys, claims_cls=CodeIDToken)
     userdata.validate()
 
