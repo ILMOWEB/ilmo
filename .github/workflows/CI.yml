@@ -21,6 +21,7 @@ jobs:
       PASSWORD: postgres
       HOST: 127.0.0.1
       PORT: 5432
+      LOCAL: True
 
     # Service for Postgres DB
     services:
@@ -30,7 +31,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: github_actions
-          LOCAL: True
         ports:
           - 5432:5432
         # needed because the postgres container does not provide a healthcheck
