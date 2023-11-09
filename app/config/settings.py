@@ -149,7 +149,7 @@ MESSAGE_TAGS = {
 }
 
 if env("LOCAL") == 'False':
-    AUTHENTICATION_BACKENDS = ['ilmoweb.authenticate.AuthenticationBackend']
+    AUTHENTICATION_BACKENDS = ['ilmoweb.authentication.AuthenticationBackend']
 
 if env("LOCAL") == 'False':
     # AUTHLIB CLIENTS
