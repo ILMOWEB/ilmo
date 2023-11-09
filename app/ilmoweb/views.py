@@ -18,7 +18,7 @@ def home_page_view(request):
         return redirect(open_labs)
     return render(request, "home.html")
 
-@login_required
+@login_required(login_url='login')
 def created_labs(request):
     """
         View for all created labs
@@ -32,7 +32,7 @@ def created_labs(request):
     return render(request, "created_labs.html", {"courses":courses, "labs":course_labs,
                                                  "lab_groups":lab_groups})
 
-@login_required
+@login_required(login_url='login')
 def create_lab(request):
     """
         View for creating a new lab
@@ -54,7 +54,7 @@ def create_lab(request):
 
     return render(request, "create_lab.html", {"course_id": course_id})
 
-@login_required
+@login_required(login_url='login')
 def create_group(request):
     """
         View for creating a new labgroup
@@ -86,7 +86,7 @@ def create_group(request):
     return render(request, "create_group.html", {
         "labs":course_labs, "course":course, "assistants":assistants})
 
-@login_required
+@login_required(login_url='login')
 def open_labs(request):
     """
         View for labs that are open
@@ -101,7 +101,7 @@ def open_labs(request):
                                               "lab_groups":lab_groups, "signedup":signedup,
                                               "users_enrollments":users_enrollments})
 
-@login_required
+@login_required(login_url='login')
 def enroll(request):
     """
         A request for student enrolling in a given lab group
@@ -135,7 +135,7 @@ def enroll(request):
                 messages.warning(request, "Ilmoittautuminen epäonnistui")
     return redirect(open_labs)
 
-@login_required
+@login_required(login_url='login')
 def confirm(request):
     """
         request for confirming a labgroup
@@ -155,7 +155,7 @@ def confirm(request):
             return redirect(open_labs)
     return redirect(open_labs)
 
-@login_required
+@login_required(login_url='login')
 def make_lab_visible(request, lab_id):
     """
         Toggle the lab's visibility based on its current state.
@@ -167,7 +167,7 @@ def make_lab_visible(request, lab_id):
 
     return redirect(created_labs)
 
-@login_required
+@login_required(login_url='login')
 def delete_lab(request, lab_id):
     """
         Delete lab from created_labs view.
@@ -179,7 +179,7 @@ def delete_lab(request, lab_id):
 
     return redirect(created_labs)
 
-@login_required
+@login_required(login_url='login')
 def my_labs(request):
     """
         My labs view
@@ -194,7 +194,7 @@ def my_labs(request):
                                             "labgroup_ids_with_reports":lg_ids_with_reports,
                                             "labgroup_ids_without_grade":ids_without_grade})
 
-@login_required
+@login_required(login_url='login')
 def return_report(request):
     """
         Path for returning reports
@@ -215,7 +215,7 @@ def return_report(request):
     messages.success(request, "Tiedosto lähetetty onnistuneesti")
     return redirect("/my_labs")
 
-@login_required
+@login_required(login_url='login')
 def returned_reports(request):
     """
         Teacher's view of all returned reports.
@@ -231,7 +231,7 @@ def returned_reports(request):
     return render(request, "returned_reports.html", {"courses":courses, "labs":course_labs,
     "lab_groups":lab_groups, "reports":reports, "users":users})
 
-@login_required
+@login_required(login_url='login')
 def returned_report(request, report_id):
     """
         Changes the assistant of a certain report.
@@ -247,7 +247,7 @@ def returned_report(request, report_id):
 
     return redirect("/returned_reports")
 
-@login_required
+@login_required(login_url='login')
 def evaluate_report(request, report_id):
     """
         Teacher's view for evaluating a certain report.
@@ -279,7 +279,7 @@ def evaluate_report(request, report_id):
     return render(request, "evaluate_report.html", {"course":course, "lab":lab,
     "lab_group":lab_group, "report":report, "student":student})
 
-@login_required
+@login_required(login_url='login')
 def download_report(request, filename):
     """
         Teacher can download reports through this view.
@@ -287,7 +287,7 @@ def download_report(request, filename):
     response = files.download_file(filename)
     return response
 
-@login_required
+@login_required(login_url='login')
 def delete_labgroup(request, labgroup_id):
     """
         Delete course from created_labs view.
@@ -299,7 +299,7 @@ def delete_labgroup(request, labgroup_id):
 
     return redirect(created_labs)
 
-@login_required
+@login_required(login_url='login')
 def labgroup_status(request, labgroup_id):
     """
         Toggle labgroups status based on its current state.
@@ -314,7 +314,7 @@ def labgroup_status(request, labgroup_id):
 
     return redirect(created_labs)
 
-@login_required
+@login_required(login_url='login')
 def cancel_enrollment(request, labgroup_id):
     """
         Student can cancel an enrollment to a labgroup through this view.
