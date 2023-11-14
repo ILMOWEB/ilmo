@@ -18,7 +18,7 @@ from ilmoweb.models import User, Courses, Labs, LabGroups, SignUp, Report
 from ilmoweb.logic import labs, signup, labgroups, files, check_previous_reports
 
 
-CONF_URL = 'https://login-test.it.helsinki.fi/.well-known/openid-configuration'
+CONF_URL = 'https://login.helsinki.fi/.well-known/openid-configuration'
 oauth = OAuth()
 oauth.register(
     name='ilmoweb',
@@ -43,7 +43,7 @@ claims_data = {
 
 claims = json.dumps(claims_data)
 
-with urllib.request.urlopen("https://login-test.it.helsinki.fi/idp/profile/oidc/keyset") as url:
+with urllib.request.urlopen("https://login.helsinki.fi/idp/profile/oidc/keyset") as url:
     keys = json.load(url)
 
 def login(request):
@@ -63,6 +63,9 @@ def auth(request):
     userdata = jwt.decode(token['id_token'], keys, claims_cls=CodeIDToken)
     userdata.validate()
 
+    print(userinfo)
+    print(userdata)
+
     user = django_authenticate(userinfo=userinfo)
     if user is not None:
         django_login(request, user)
@@ -75,7 +78,7 @@ def logout(request):
     """
     django_logout(request)
 
-    return redirect("https://login-test.it.helsinki.fi/idp/profile/Logout")
+    return redirect("https://login.helsinki.fi/idp/profile/Logout")
 
 def home_page_view(request):
     """
