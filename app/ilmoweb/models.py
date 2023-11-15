@@ -1,5 +1,6 @@
 """Module for models."""
 from django.db import models
+from django_cryptography.fields import encrypt
 from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
@@ -7,7 +8,9 @@ class User(AbstractUser):
         Model for user-data
 
     """
-    student_id = models.IntegerField(default=000000000)
+    student_id = encrypt(models.CharField(default="000000000"))
+    first_name = encrypt(models.CharField(max_length = 100))
+    last_name = encrypt(models.CharField(max_length = 100))
 
 class Courses(models.Model):
     """
