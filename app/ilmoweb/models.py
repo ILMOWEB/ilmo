@@ -1,7 +1,7 @@
 """Module for models."""
 from django.db import models
-from django_cryptography.fields import encrypt
 from django.contrib.auth.models import AbstractUser
+from django_cryptography.fields import encrypt
 
 class User(AbstractUser):
     """
