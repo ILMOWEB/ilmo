@@ -11,6 +11,7 @@ class User(AbstractUser):
     student_id = encrypt(models.CharField(default="000000000"))
     first_name = encrypt(models.CharField(max_length = 100))
     last_name = encrypt(models.CharField(max_length = 100))
+    email = encrypt(models.CharField(max_length = 100))
 
 class Courses(models.Model):
     """
