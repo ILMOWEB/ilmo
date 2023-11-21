@@ -28,15 +28,12 @@ oauth.register(
 )
 
 claims_data = {
-        "id_token": {
-            "hyPersonStudentId": { "essential": True }
-
-        },
         "userinfo": {
-            "email": { "essential": True },
-            "given_name": { "essential": True },
-            "family_name": { "essential": True },
-            "uid": { "essential": True }
+            "email": None,
+            "given_name": None,
+            "family_name": None,
+            "uid": None,
+            "hyPersonStudentId": None
         }
     }
 
