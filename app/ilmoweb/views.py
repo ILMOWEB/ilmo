@@ -56,6 +56,7 @@ def auth(request):
     token = oauth.ilmoweb.authorize_access_token(request)
 
     userinfo = oauth.ilmoweb.userinfo(token=token)
+    print(userinfo)
     userdata = jwt.decode(token["id_token"], keys, claims_cls=CodeIDToken)
     userdata.validate()
 
