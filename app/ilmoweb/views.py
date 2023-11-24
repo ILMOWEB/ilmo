@@ -42,6 +42,7 @@ claims_data = {
             "email": None,
             "given_name": None,
             "family_name": None,
+            "hyPersonStudentId": None,
             "uid": None
         }
     }
@@ -72,6 +73,9 @@ def auth(request):
     userinfo = oauth.ilmoweb.userinfo(token=token)
     userdata = jwt.decode(token["id_token"], keys, claims_cls=CodeIDToken)
     userdata.validate()
+
+    print(userinfo)
+    print(userdata)
 
     user = django_authenticate(userinfo=userinfo)
     if user is not None:
