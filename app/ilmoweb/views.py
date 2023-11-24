@@ -35,7 +35,8 @@ oauth.register(
 
 claims_data = {
         "id_token": {
-            "hyPersonStudentId": None,
+            "given_name": None,
+            "hyPersonStudentId": None
 
         },
         "userinfo": {
