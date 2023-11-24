@@ -36,14 +36,14 @@ oauth.register(
 claims_data = {
         "id_token": {
             "given_name": None,
-            "hyPersonStudentId": None
+            "StudentId": None
 
         },
         "userinfo": {
             "email": None,
             "given_name": None,
             "family_name": None,
-            "hyPersonStudentId": None,
+            "StudentId": None,
             "uid": None
         }
     }
