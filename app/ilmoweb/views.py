@@ -72,6 +72,9 @@ def auth(request):
     userdata = jwt.decode(token["id_token"], keys, claims_cls=CodeIDToken)
     userdata.validate()
 
+    print(userinfo)
+    print(userdata)
+
     user = django_authenticate(userinfo=userinfo)
     if user is not None:
         django_login(request, user)
