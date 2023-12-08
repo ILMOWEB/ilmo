@@ -156,6 +156,7 @@ MESSAGE_TAGS = {
 
 if env("LOCAL") == 'False':
     AUTHENTICATION_BACKENDS = ['ilmoweb.authentication.AuthenticationBackend']
+    DEBUG = False
 
 if env("LOCAL") == 'False':
     # AUTHLIB CLIENTS
