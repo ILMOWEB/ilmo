@@ -42,6 +42,12 @@
           <td class="hide-on-mobile">Raportti</td>
           <td label="Raportti"><a href="/download_report/{{ report.report_file_path }}" download>{{ report.report_file_name }}</a></td>
         </tr>
+        {% if report.report_status == 2 %}
+        <tr>
+          <td class="hide-on-mobile">Korjausta pyydetty</td>
+          <td label="KOrjausta pyydetty">{{ report.grading_date.day }}.{{ report.grading_date.month }}.{{ report.grading_date.year }}</td>
+        </tr>
+        {% endif %}
         <tr>
           <td class="hide-on-mobile">Arvosana</td>
           <td label="Arvosana">
