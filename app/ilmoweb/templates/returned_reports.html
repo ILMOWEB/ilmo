@@ -15,12 +15,13 @@
   <table class="table table-bordered align-middle" id="mobile">
     <thead>
       <tr class="table-secondary">
-        <th colspan="7">{{ course.name }}</th>
+        <th colspan="8">{{ course.name }}</th>
       </tr>
       <tr class="table-light">
         <th class="hide-on-mobile" width="10%">Ryhmä</th>
         <th class="hide-on-mobile" width="25%">Työ</th>
         <th class="hide-on-mobile" width="15%">Tekijä</th>
+        <th class="hide-on-mobile" width="10%">Palautettu</th>
         <th class="hide-on-mobile" width="25%" colspan="2">Assistentti</th>
         <th class="hide-on-mobile" width="15%">Status</th>
         <th class="hide-on-mobile" width="10%">Arvostelu</th>
@@ -39,6 +40,7 @@
         <td label="Ryhmä">{{lab_group.date.day}}.{{lab_group.date.month}}.{{lab_group.date.year}}</td>
         <td label="Työ">{{ lab.name }}</td>
         <td label="Tekijä">{{ user.first_name }} {{ user.last_name }}</td>
+        <td label="Palautettu">{{report.send_date.day}}.{{report.send_date.month}}.{{report.send_date.year}}</td>
         <td label="Assistentti" class="border-right-0">
           {% if report.graded_by == None %}
             Ei assistenttia

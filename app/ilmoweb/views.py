@@ -18,6 +18,7 @@ from authlib.jose import jwt
 from ilmoweb.models import User, Courses, Labs, LabGroups, SignUp, Report, TeachersMessage
 from ilmoweb.logic import labs, signup, labgroups, files, teachermessage, mail, distint_id
 from ilmoweb.logic import check_previous_reports, users_info, filter_reports
+from operator import attrgetter
 env = environ.Env()
 environ.Env.read_env()
 
@@ -414,6 +415,14 @@ def returned_reports(request, limit=0):
         )
 
     reports, lab_groups, course_labs, courses = distint_id.sort(data)
+
+    lab_groups = sorted(
+    lab_groups,
+    key=attrgetter('date', 'lab.name')
+    )
+
+    for i in reports:
+        print(i.send_date)
 
     return render(request, "returned_reports.html",
                   {"courses":courses, "labs":course_labs,
