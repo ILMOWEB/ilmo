@@ -63,7 +63,7 @@
           </td>
         </tr>
         <tr>
-          <td class="hide-on-mobile" rowspan="2">Kommentit</td>
+          <td class="hide-on-mobile" rowspan="3">Kommentit</td>
           <td label="Kommentit">
             <textarea class="form-control" name="comments" rows="3" data-testid="comment">{{ report.comments }}</textarea>
           </td>
@@ -74,6 +74,14 @@
             <input type="file" name="file" id="fileid" data-testid="file">
             <button class="btn btn-light btn-outline-dark" id="resetbtn">Tyhjennä</button>
           </td>
+        </tr>
+        <tr>
+          {% if report.report_comment_file %}
+          <td label="Kommenttitiedosto">
+            <class="hide-on-mobile">Lataa kommenttitiedosto:</class>
+            <a class="file-name" href="/download_report/{{ report.comment_file_path }}" download>{{ report.comment_file_name }}</a>
+          </td>
+          {% endif %}
         </tr>
         <tr>
           <td colspan="2">
