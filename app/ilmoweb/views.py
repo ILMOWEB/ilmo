@@ -424,9 +424,6 @@ def returned_reports(request, limit=0):
     key=attrgetter('date', 'lab.name')
     )
 
-    for i in reports:
-        print(i.send_date)
-
     return render(request, "returned_reports.html",
                   {"courses":courses, "labs":course_labs,
                     "lab_groups":lab_groups, "reports":reports,

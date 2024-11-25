@@ -72,7 +72,7 @@ class Report(models.Model):
     report_file_name = models.CharField(default="")
     report_status = models.IntegerField()
     # 0 = no file, 1 = report returned, 2 = revisions proposed, 3 = fixed report, 4 = report graded
-    comments = models.TextField()
+    comments = models.TextField(default="")
     comment_file = models.FileField(upload_to="ilmoweb/static/upload/", null=True)
     comment_file_name = models.CharField(default="")
     notes = models.TextField(default="")
