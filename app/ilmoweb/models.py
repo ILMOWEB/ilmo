@@ -24,6 +24,9 @@ class Courses(models.Model):
     labs_amount = models.IntegerField()
     is_visible = models.BooleanField()
 
+    def __str__(self):
+        return self.name
+
 class Labs(models.Model):
     """
         Model for labs
@@ -35,6 +38,9 @@ class Labs(models.Model):
     max_students = models.IntegerField(default= 1)
     is_visible = models.BooleanField()
     deleted = models.BooleanField(default=0)
+
+    def __str__(self):
+        return self.name
 
 class LabGroups(models.Model):
     """
@@ -52,6 +58,10 @@ class LabGroups(models.Model):
     assistant = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     deleted = models.BooleanField(default=0)
 
+    def __str__(self):
+        formatted_time = self.start_time.strftime("%H:%M") if self.start_time else ""
+        return f"{self.date} {formatted_time} {self.lab}"
+
 class SignUp(models.Model):
     """
         Model for users and the labgroups they have signed up for
@@ -59,6 +69,9 @@ class SignUp(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     labgroups = models.ForeignKey(LabGroups, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user}"
 
 class Report(models.Model):
     """
@@ -92,6 +105,9 @@ class Report(models.Model):
     @property
     def report_file_path(self):
         return self.report_file.name.split('/')[-1] if self.report_file else None
+
+    def __str__(self):
+        return f"{self.student}, {self.lab_group}"
 
 class TeachersMessage(models.Model):
     """
