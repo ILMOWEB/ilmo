@@ -380,20 +380,6 @@ def return_report(request):
         messages.warning(request, "Tiedoston tulee olla pdf-muodossa")
         return redirect("/my_labs")
 
-    #prev_1 = Report.objects.filter(student=student, lab_group=lab_group, report_status=1)
-    #prev_2 = Report.objects.filter(student=student, lab_group=lab_group, report_status=2)
-    #prev_3 = Report.objects.filter(student=student, lab_group=lab_group, report_status=3)
-    #prev_4 = Report.objects.filter(student=student, lab_group=lab_group, report_status=4)
-
-    #check_previous_reports.check_and_replace(request,
-    #                                        prev_1,
-    #                                        prev_2,
-    #                                        prev_3,
-    #                                        prev_4,
-    #                                        student,
-    #                                        lab_group,
-    #                                        file)
-
     prev = Report.objects.filter(student=student, lab_group=lab_group)
     check_previous_reports.check_and_replace(request, prev, student, lab_group, file)
 

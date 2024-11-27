@@ -76,7 +76,7 @@
           </td>
         </tr>
         <tr>
-          {% if report.report_comment_file %}
+          {% if report.comment_file %}
           <td label="Kommenttitiedosto">
             <class="hide-on-mobile">Lataa kommenttitiedosto:</class>
             <a class="file-name" href="/download_report/{{ report.comment_file_path }}" download>{{ report.comment_file_name }}</a>
