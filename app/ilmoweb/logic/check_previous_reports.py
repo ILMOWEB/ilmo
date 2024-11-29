@@ -16,6 +16,7 @@ def check_and_replace(request, prev, student, lab_group, file): # pylint: disabl
         prev_comment_file = prev[0].comment_file
         prev_comment_file_name = prev[0].comment_file_name
         prev_notes = prev[0].notes
+        prev_graded_by = prev[0].graded_by
         report_status = 0
         message = ""
 
@@ -42,7 +43,7 @@ def check_and_replace(request, prev, student, lab_group, file): # pylint: disabl
                         comment_file=prev_comment_file,
                         comment_file_name=prev_comment_file_name,
                         notes=prev_notes,
-                        graded_by=lab_group.assistant)
+                        graded_by=prev_graded_by)
         report.save()
 
 
